@@ -1,81 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Predictor's Curse</title>
-  <style>
-    body {
-      background-color: #0d0d0d;
-      color: #f2f2f2;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      padding: 40px 10px;
-    }
-    h1 {
-      color: #00ff99;
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-    textarea {
-      width: 90%;
-      max-width: 600px;
-      height: 100px;
-      background-color: #1a1a1a;
-      color: #ffffff;
-      border: 2px solid #444;
-      border-radius: 8px;
-      padding: 10px;
-      font-size: 1em;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1em;
-      background-color: #00ffaa;
-      color: black;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #00ffcc;
-    }
-    #output {
-      margin-top: 20px;
-      font-size: 1.2em;
-      color: #ff6666;
-    }
-    .footer {
-      margin-top: 50px;
-      font-size: 0.9em;
-      color: #999;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>🔮 The Predictor's Curse</h1>
-  <p>Paste last 9 multipliers below (separated by commas):</p>
-  <textarea id="input" placeholder="e.g. 1.05, 2.14, 1.01, ..."></textarea><br/>
-  <button onclick="predict()">Predict Next Round</button>
-  <div id="output"></div>
-  <div class="footer">Beta version | Manual mode | Offline supported</div>
 
-  <script>
-    function predict() {
-      const input = document.getElementById("input").value;
-      const values = input.split(',').map(x => parseFloat(x.trim())).filter(x => !isNaN(x));
-      if (values.length < 9) {
-        document.getElementById("output").innerText = "⚠️ Please enter at least 9 multipliers.";
-        return;
-      }
-      const avg = values.reduce((a, b) => a + b) / values.length;
-      let prediction = "Safe (1.10x-2x)";
-      if (avg > 3) prediction = "⚠️ Risk Zone (2x-10x)";
-      if (avg > 8) prediction = "🔥 High Risk (10x+)";
-      document.getElementById("output").innerText = "Predicted Zone: " + prediction;
-    }
-  </script>
+  <div class="input-section">
+    <input type="number" id="newResult" placeholder="Enter multiplier" step="0.01" />
+    <button onclick="addResult()">Add Result</button>
+  </div>
+
+  <div class="list-container">
+    <h3>Multiplier List:</h3>
+    <ul id="resultList"></ul>
+  </div>
+
+  <div id="output"></div>
+  <div class="footer">Beta version | Auto mode | Offline supported</div>
+
+  <script src="script.js"></script>
 </body>
 </html>
